@@ -1,4 +1,5 @@
 {
   "showLineNumber": true,
-  "vimMode": true
+  "vimMode": true,
+  "useTab": false
 }

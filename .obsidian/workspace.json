@@ -4,20 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "0b6958f8e363b61f",
+        "id": "26fa7b51d98c3b4a",
         "type": "tabs",
         "children": [
           {
-            "id": "459ffd146f48f5bb",
+            "id": "c24503ab3de2d024",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "markdown",
               "state": {
-                "file": ".obsidian/workspace.json",
-                "staged": false
+                "file": "Pytorch intrusive pointer.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
               },
-              "icon": "git-pull-request",
-              "title": "Diff View (workspace.json)"
+              "icon": "lucide-file",
+              "title": "Pytorch intrusive pointer"
             }
           }
         ]
@@ -72,11 +74,13 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "ef46047d3cf99fe5",
@@ -92,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Pytorch internals.md",
+                "file": "Pytorch intrusive pointer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +106,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Pytorch internals"
+              "title": "Backlinks for Pytorch intrusive pointer"
             }
           },
           {
@@ -138,10 +142,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Pytorch internals.md"
+                "file": "Pytorch intrusive pointer.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Pytorch internals"
+              "title": "Outline of Pytorch intrusive pointer"
             }
           },
           {
@@ -172,9 +176,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "459ffd146f48f5bb",
+  "active": "c24503ab3de2d024",
   "lastOpenFiles": [
     "Pytorch internals.md",
+    "Pytorch Tensor.md",
+    "Pytorch intrusive pointer.md",
     "2024-11-04.md"
   ]
 }
