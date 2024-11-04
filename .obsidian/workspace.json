@@ -11,15 +11,10 @@
             "id": "c24503ab3de2d024",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Pytorch intrusive pointer.md",
-                "mode": "source",
-                "backlinks": false,
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Pytorch intrusive pointer"
+              "title": "New tab"
             }
           }
         ]
@@ -96,7 +91,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Pytorch intrusive pointer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +100,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Pytorch intrusive pointer"
+              "title": "Backlinks"
             }
           },
           {
@@ -141,11 +135,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Pytorch intrusive pointer.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "Outline of Pytorch intrusive pointer"
+              "title": "Outline"
             }
           },
           {
@@ -178,9 +170,14 @@
   },
   "active": "c24503ab3de2d024",
   "lastOpenFiles": [
+    "pytorch/tensor.md",
+    "pytorch/Tensor.md",
+    "pytorch/intrusive pointer.md",
+    "Pytorch intrusive pointer.md",
+    "pytorch/Intrusive pointer.md",
+    "pytorch",
     "Pytorch internals.md",
     "Pytorch Tensor.md",
-    "Pytorch intrusive pointer.md",
     "2024-11-04.md"
   ]
 }
