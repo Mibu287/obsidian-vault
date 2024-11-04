@@ -4,17 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "ca0d53fd6c2ffc11",
+        "id": "0b6958f8e363b61f",
         "type": "tabs",
         "children": [
           {
-            "id": "bc02df163f52e04a",
+            "id": "459ffd146f48f5bb",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "diff-view",
+              "state": {
+                "file": ".obsidian/workspace.json",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (workspace.json)"
             }
           }
         ]
@@ -134,13 +137,25 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "Pytorch internals.md"
+              },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Pytorch internals"
+            }
+          },
+          {
+            "id": "1a183c961b51e1fd",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -157,9 +172,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "bc02df163f52e04a",
+  "active": "459ffd146f48f5bb",
   "lastOpenFiles": [
-    "2024-11-04.md",
-    "Pytorch internals.md"
+    "Pytorch internals.md",
+    "2024-11-04.md"
   ]
 }
