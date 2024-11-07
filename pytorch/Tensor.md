@@ -1,4 +1,4 @@
-#DeepLearning #Pytorch #DeepDive
+#DeepLearning #Pytorch #DeepDive #DataStructure 
 
 # 1. What is a Tensor?
 
@@ -170,8 +170,21 @@ protected:
  *    tensor is fully initialized in all fields.  Please do not write new code
  *    that depends on these uninitialized states.
  */
-struct C10_API TensorImpl : public c10::intrusive_ptr_target {
-    ...
+struct C10_API TensorImp
+  Storage storage_;
+  std::unique_ptr<c10::AutogradMetaInterface> autograd_meta_ = nullptr;     std::unique_ptr<c10::ExtraMeta> extra_meta_ = nullptr;
+  c10::VariableVersion version_counter_;
+  impl::PyObjectSlot pyobj_slot_;
+  c10::impl::SizesAndStrides sizes_and_strides_;
+  int64_t storage_offset_ = 0;
+  int64_t numel_ = 1;
+  caffe2::TypeMeta data_type_;
+  std::optional<c10::Device> device_opt_;
+  DispatchKeySet key_set_;
+  ...
 };
 ```
-Refer [[Pytorch intrusive pointer#1.1. Intrusive pointer target]] for more information about  `c10::intrusive_ptr_target`
+
+- Refer [[Pytorch intrusive pointer#1.1. Intrusive pointer target]] for more information about  `c10::intrusive_ptr_target`
+- Refer [[TypeMeta]] for more information about `TypeMeta`
+- Refer [[Tensor Storage]] for more information about `Storage`
