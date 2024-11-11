@@ -185,6 +185,7 @@ struct C10_API TensorImp
 };
 ```
 
-- Refer [[Pytorch intrusive pointer#1.1. Intrusive pointer target]] for more information about  `c10::intrusive_ptr_target`
+- Refer [[Intrusive pointer#1.1. Intrusive pointer target]] for more information about  `c10::intrusive_ptr_target`
 - Refer [[TypeMeta]] for more information about `TypeMeta`
 - Refer [[Tensor Storage]] for more information about `Storage`
+- Refer [[Dispatcher#1.2. Dispatch Key Set]] for more information about `DispatchKeySet`
