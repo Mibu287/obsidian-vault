@@ -1,3 +1,5 @@
+#Pytorch #DeepLearning #DeepDive #DataStructure #Dispatcher
+
 # 1. Dispatch Key 
 
 Each `Tensor` has associated dispatch key which can be computed from `dtype`, `layout`, `device`.
@@ -138,3 +140,174 @@ inline DispatchKey computeDispatchKey(
 - `dtype`: Data type of the tensor
 - `layout`: How data is stored in memory? stride (contiguous) /  sparse / ... ?
 - `device`: Which device the data reside? CPU (RAM) / MPS buffer / CUDA device memory / ... ?
+
+# 2. How dispatcher work?
+
+Given a simple addition operation below. How does the operation `+` is called from Python code?
+
+```Python
+import torch
+
+x = torch.tensor([1, 2, 3])
+y = torch.tensor([4, 5, 6])
+z = x + y
+print(z)
+```
+
+## 2.1.  Python method signature selector 
+
+```C++
+// file: torch/csrc/autograd/generated/python_variable_methods.cpp
+// This file is auto-generated from template
+// This function is called when Tensor.__add__ method is called by Python
+static PyObject * THPVariable_add(PyObject* self_, PyObject* args, PyObject* kwargs)
+{
+  // Parse function signatures
+  ...
+  auto _r = parser.parse(self_, args, kwargs, parsed_args);
+  if(_r.has_torch_function()) {
+    ...
+  }
+
+  // Select the matched function for the signature
+  switch (_r.idx) {
+    case 0: {
+      ...
+      return ...;
+    }
+
+    case 1: {
+      // aten::add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -> Tensor
+      auto dispatch_add = [](const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha) -> at::Tensor {
+        pybind11::gil_scoped_release no_gil;
+        return self.add(other, alpha);
+      };
+      return wrap(dispatch_add(self, _r.tensor(0), _r.scalar(1)));
+    }
+```
+
+In essence, Python bindings only do the following things:
+- Select the matching function for the function signature
+- Release GIL and call the C++ kernel
+- Wrap the C++ result in Python Object and return
+
+## 2.2. Finding matching C++ operator 
+
+The Python bindings above call the C++ function below:
+
+```C++
+// file: ATen/core/TensorBody.h
+// aten::add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -> Tensor
+inline at::Tensor
+Tensor::add( const at::Tensor & other, const at::Scalar & alpha) const {
+    return at::_ops::add_Tensor::call(const_cast<Tensor&>(*this), other, alpha);
+}
+```
+
+The method `Tensor::add` is just a thin wrapper around another function `at::_ops::add_Tensor::call`
+
+```C++
+// file: ATen/ops/add_ops.h
+// The file is generated from template
+struct TORCH_API add_Tensor {
+  using schema = at::Tensor (const at::Tensor &, const at::Tensor &, const at::Scalar &);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::add")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Tensor")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha);
+};
+```
+
+The method call is implemented in file `build/aten/src/ATen/Operators_2.cpp` (which is generated from template)
+
+```C++
+// aten::add.Tensor(Tensor self, Tensor other, *, Scalar alpha=1) -> Tensor
+static C10_NOINLINE c10::TypedOperatorHandle<add_Tensor::schema> create_add_Tensor_typed_handle() {
+  return c10::Dispatcher::singleton()
+      .findSchemaOrThrow(add_Tensor::name, add_Tensor::overload_name)
+      .typed<add_Tensor::schema>();
+}
+
+at::Tensor add_Tensor::call(const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha) {
+    
+    static auto op = create_add_Tensor_typed_handle();
+    return op.call(self, other, alpha);
+}
+```
+
+The 2 functions above find registered kernel and execute the kernel. An exception is thrown if no matching kernel found.
+
+At the end of this step, an `OperatorHandle` corresponding the the operation is found
+
+## 2.3. Find matching kernel
+
+```C++
+// file: aten/src/ATen/core/dispatch/Dispatcher.h
+template<class Return, class... Args>
+class TypedOperatorHandle<Return (Args...)> final : public OperatorHandle {
+...
+public:
+  C10_ALWAYS_INLINE Return call(Args... args) const {
+    return c10::Dispatcher::singleton().call<Return, Args...>(*this, std::forward<Args>(args)...);
+  }
+...
+};
+```
+
+```C++
+// file: aten/src/ATen/core/dispatch/Dispatcher.h
+template<class Return, class... Args>
+C10_ALWAYS_INLINE_UNLESS_MOBILE Return
+Dispatcher::call(
+  const TypedOperatorHandle<Return(Args...)>& op,
+  Args... args
+) const {
+  auto dispatchKeySet = op.operatorDef_->op.dispatchKeyExtractor()
+    .template getDispatchKeySetUnboxed<Args...>(args...);
+
+  const KernelFunction& kernel = op.operatorDef_->op.lookup(dispatchKeySet);
+
+    return kernel.template call<Return, Args...>(op, dispatchKeySet, std::forward<Args>(args)...);
+}
+```
+
+Dispatch key set is calculated using the Operator's `dispatchKeyExtractor` instance and all of the arguments' dispatch key set.
+The matching kernel is found using the dispatch key set above.
+Finally, the kernel is executed using the `call` method.
+
+# 2.4. Execute the kernel
+
+```C++
+// file: aten/src/ATen/core/boxing/KernelFunction_impl.h
+template<class Return, class... Args>
+C10_ALWAYS_INLINE Return KernelFunction::call(const OperatorHandle& opHandle, DispatchKeySet dispatchKeySet, Args... args) const {
+  ...
+
+  auto *functor = boxed_kernel_func_.getFunctor();
+  return callUnboxedKernelFunction<Return, Args...>(
+         unboxed_kernel_func_, functor, dispatchKeySet, std::forward<Args>(args)...);
+
+  ...
+}
+```
+
+The kernel is executed and the result is returned.
+
+**Example**: For `Add` operation, when the dispatch process finish, the function is selected as below. The function will do the actual work of adding 2 tensors.
+
+```C++
+// file: build/aten/src/ATen/UfuncCPUKernel_add.cpp
+cpu_kernel_vec(iter,
+  [=](scalar_t self, scalar_t other) { return ufunc::add(self, other, _s_alpha); },
+  [=](at::vec::Vectorized<scalar_t> self, at::vec::Vectorized<scalar_t> other) { return ufunc::add(self, other, _v_alpha); }
+);
+```
+
+The function take 3 arguments:
+- `iter` iterator for all of the tensors
+- lambda 1: The function to do element-wise addition
+- lambda 2: The function to do vectorized addition
+The function will vectorize the input tensors and apply vectorize-function. The remainder will be applied element-wise function.
