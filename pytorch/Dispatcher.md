@@ -278,7 +278,7 @@ Dispatch key set is calculated using the Operator's `dispatchKeyExtractor` insta
 The matching kernel is found using the dispatch key set above.
 Finally, the kernel is executed using the `call` method.
 
-# 2.4. Execute the kernel
+## 2.4. Execute the kernel
 
 ```C++
 // file: aten/src/ATen/core/boxing/KernelFunction_impl.h
@@ -295,6 +295,9 @@ C10_ALWAYS_INLINE Return KernelFunction::call(const OperatorHandle& opHandle, Di
 ```
 
 The kernel is executed and the result is returned.
+
+==**NOTE**: When the kernel is executed, Pytorch always check for autograd requirements and re-dispatch after checking. Details of this process has not been studied yet. 
+//**TODO**: Understand the semantics of autograd and its relevance to dispatching. 
 
 **Example**: For `Add` operation, when the dispatch process finish, the function is selected as below. The function will do the actual work of adding 2 tensors.
 

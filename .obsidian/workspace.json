@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "46eed05c6516bd20",
+        "id": "86a32f9b20d836ac",
         "type": "tabs",
         "children": [
           {
-            "id": "e3bfaa628264318c",
+            "id": "55d7b45138f1909e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "pytorch/Dispatcher.md",
+                "file": "pytorch/Kernels.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dispatcher"
-            }
-          },
-          {
-            "id": "be8c241cdf270e18",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "pytorch/Kernel registration API.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Kernel registration API"
+              "title": "Kernels"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -154,10 +139,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "pytorch/Kernel registration API.md"
+                "file": "pytorch/Kernels.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Kernel registration API"
+              "title": "Outline of Kernels"
             }
           },
           {
@@ -193,14 +178,14 @@
     "pytorch/Dispatcher.md",
     "pytorch/Kernel registration API.md",
     "pytorch/Kernels.md",
-    "pytorch/Tensor.md",
-    "pytorch/Intrusive pointer.md",
     "pytorch/Miscellaneous.md",
+    "pytorch/Tensor.md",
     "pytorch/Tensor Storage.md",
+    "pytorch/TypeMeta.md",
+    "pytorch/Intrusive pointer.md",
     "Wifi protected setup.md",
     "security",
     "pytorch/Device.md",
-    "pytorch/TypeMeta.md",
     "pytorch/tensor.md",
     "Pytorch intrusive pointer.md",
     "pytorch",
