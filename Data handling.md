@@ -43,4 +43,8 @@ E.g:
 entries: | f1, v1 | f2, v2 | f3, v3| f2, v2 | f4, v4|
 offset. : 0 | 3 | 5
 
-==> The first row consists of entries in range \[0, 3) which are 3 features f1, f2, f3. The second row consists of entries in range [3]
+==> The first row consists of entries in range \[0, 3) which are 3 features f1, f2, f3. The second row consists of entries in range \[3, 5) which are 2 features f2 and f4.
+
+Any features not appear are considered missing.
+
+This data structure is beneficial if a row consists mostly missing features. If the dataset is dense, this structure is wasteful and slower than normal structure.
