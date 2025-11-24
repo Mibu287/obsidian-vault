@@ -84,4 +84,8 @@ When the whole dataset is ingested, the quantile sketch is used to make bins of 
 
 # 2. Histogram
 
-After data is put into bins, a histogram is calculated (sum of grad, hessian values). The histogram is needed to 
+After data is put into bins, a histogram is calculated (sum of grad, hessian values). The histogram is needed to calculate gain of each split and weights of each leaf (again, refer to the paper for more info).
+
+Histogram is required to be recalculated after each new tree due to grad/hessian value changed.
+
+The algorithm now search each split for each features to find the best split for each leaf. If the condition (max depth, min weight) is met, the newly split leaves are put back into candidate queue to be evaluate for potential splits. Split finding can be parallelized because they are independent from each others.
