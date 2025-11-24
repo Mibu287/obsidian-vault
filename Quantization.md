@@ -63,3 +63,14 @@ class WQuantileSketch :
 ```
 
 The histogram of input data is typically built only once at initialization of the learner object. Subsequent iteration can reuse the histogram ==> Speed up the process massively.
+
+The algorithm is roughly as following:
+
+1. Data is ingested into learner object. As data is being ingested, it is stored in queue.
+2. When the queue is full, it is processed to move to `WQSummary` at level 0.
+3. Check if the summary at level 0 is full. If not, move on to the next iteration. If yes, move up 1 level, combined with existing summary the the level. Then, prune the combined summary to fit budgeted size.
+4. Recursively repeat step 3.
+
+E.g:
+Input data has 256 * 2^N observations, expected bin count is 256.
+h is number of levels. Since each level add 
