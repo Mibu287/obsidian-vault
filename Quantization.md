@@ -61,3 +61,5 @@ template<typename DType, typename RType = unsigned>
 class WQuantileSketch :
       public QuantileSketchTemplate<DType, RType, WQSummary<DType, RType> > { };
 ```
+
+The histogram of input data is typically built only once at initialization of the learner object. Subsequent iteration can reuse the histogram ==> Speed up the process massively.
