@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Quantization.md",
+                "file": "Others.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Quantization"
+              "title": "Others"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Quantization.md",
+                "file": "Others.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Quantization"
+              "title": "Outline of Others"
             }
           }
         ],
@@ -215,8 +215,8 @@
   },
   "active": "c18ba06be93a39a4",
   "lastOpenFiles": [
-    "Others.md",
     "Quantization.md",
+    "Others.md",
     "Data handling.md",
     "rust-lang/Macros.md",
     "xgboost",
