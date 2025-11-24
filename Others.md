@@ -73,4 +73,6 @@ void ParallelFor2d(const BlockedSpace2d& space, int n_threads, Func&& func) {
 
 xgboost library use OpenMP for job dispatching. When jobs are sent to thread pool, each job determine its own chunk of works based on its thread number and total number of threads. Then it do work on its own chunks.
 
-Proof that 
+Proof that this work dividing algorithms is mutually exclusive and commonly exhaustive.
+1. Mutually exclusive: thread i and thread j with i < j. Case 1: end_i < begin_j < out_of_bound. Case 2: end_i >= out_of_bound = begin_j = end_j. In both cases, 2 threads do not share any common work.
+2. Commonly exhaustive: chunk_size >= total_work / n_threads. Each threads take chunk_size works if still available ==> The thread pool take all jobs to do.
