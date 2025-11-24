@@ -4,24 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "86a32f9b20d836ac",
+        "id": "73b427bb2d413a64",
         "type": "tabs",
         "children": [
           {
-            "id": "55d7b45138f1909e",
+            "id": "91675d29ac33551f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "pytorch/Kernels.md",
+                "file": "rust-lang/Macros.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Kernels"
+              "title": "Macros"
+            }
+          },
+          {
+            "id": "ffef3b4435636497",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Data handling.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Data handling"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -40,7 +55,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -93,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "pytorch/Tensor.md",
+                "file": "pytorch/Kernel registration API.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Tensor"
+              "title": "Backlinks for Kernel registration API"
             }
           },
           {
@@ -112,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Pytorch internals.md",
+                "file": "pytorch/Kernel registration API.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Pytorch internals"
+              "title": "Outgoing links from Kernel registration API"
             }
           },
           {
@@ -127,7 +143,9 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
@@ -139,28 +157,22 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "pytorch/Kernels.md"
+                "file": "Data handling.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Kernels"
-            }
-          },
-          {
-            "id": "1a183c961b51e1fd",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "Outline of Data handling"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -173,19 +185,36 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1a183c961b51e1fd",
+  "active": "ffef3b4435636497",
   "lastOpenFiles": [
-    "pytorch/Dispatcher.md",
-    "pytorch/Kernel registration API.md",
-    "pytorch/Kernels.md",
-    "pytorch/Miscellaneous.md",
-    "pytorch/Tensor.md",
-    "pytorch/Tensor Storage.md",
-    "pytorch/TypeMeta.md",
-    "pytorch/Intrusive pointer.md",
+    "rust-lang/Macros.md",
+    "Data handling.md",
+    "xgboost",
+    "cuda/Hardware architectures.md",
+    "JAX/Functional Programming with JAX.md",
+    "JAX/Tracing.md",
+    "JAX/Illustrated Implementation.md",
+    "JAX",
+    "pytorch/AutoGrad/AutogradMeta.md",
+    "pytorch/AutoGrad/Backward gradient.md",
+    "pytorch/AutoGrad/Node and Edge.md",
+    "pytorch/AutoGrad/Autograd Engine.md",
+    "pytorch/Tensor/Dispatcher.md",
+    "pytorch/Tensor/CUDA Allocator.md",
+    "pytorch/Tensor/Device.md",
+    "pytorch/Tensor/TypeMeta.md",
+    "pytorch/Tensor/Tensor.md",
+    "pytorch/Tensor/Intrusive pointer.md",
+    "pytorch/Tensor/Kernel registration API.md",
+    "pytorch/Tensor/Miscellaneous.md",
+    "pytorch/Tensor/Kernels.md",
+    "pytorch/Tensor/Tensor Storage.md",
+    "pytorch/Tensor",
+    "pytorch/AutoGrad",
+    "cuda",
+    "rust-lang",
     "Wifi protected setup.md",
     "security",
-    "pytorch/Device.md",
     "pytorch/tensor.md",
     "Pytorch intrusive pointer.md",
     "pytorch",

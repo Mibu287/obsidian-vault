@@ -296,8 +296,10 @@ C10_ALWAYS_INLINE Return KernelFunction::call(const OperatorHandle& opHandle, Di
 
 The kernel is executed and the result is returned.
 
-==**NOTE**: When the kernel is executed, Pytorch always check for autograd requirements and re-dispatch after checking. Details of this process has not been studied yet. 
-//**TODO**: Understand the semantics of autograd and its relevance to dispatching. 
+**NOTE**: When the kernel is executed, Pytorch always check for autograd requirements and re-dispatch after checking. 
+Reason: The dispatcher does not know if an operation is part of an execution graph with automatic gradient or not ==> the dispatcher must be conservative and always call autograd kernel first. The selected autograd kernel work with the autograd engine to setup data structure for backward pass later. Then the autograd kernel call `redispatch` to look for the actual kernel for the operation. 
+Reminder: Pytorch calls to operations are always dynamic ==> No direct call, always use dispatch/re-dispatch mechanism.
+How to make the dispatcher always call autograd kernels? When `Tensor` is initialized `TensorImpl::TensorImpl` is called and `AutogradFunctionality` is added to key set `key_set_ = key_set | getAutogradRelatedKeySetFromBackend(k);`
 
 **Example**: For `Add` operation, when the dispatch process finish, the function is selected as below. The function will do the actual work of adding 2 tensors.
 

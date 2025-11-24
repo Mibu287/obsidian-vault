@@ -257,7 +257,7 @@ An operator's definition is registered by using the macro `TORCH_LIBRARY`
 
 Explanation:
 - The `TORCH_LIBRARY` macro define a static variable `TORCH_LIBRARY_static_init_##ns` e.g `TORCH_LIBRARY_static_init_aten`.
-- The variables are declared as `static` ==> No other translation unit can read/write to the variables. In fact, the variables are defined so registration work can be done at static initialization time.
+- The variables are declared as `static` ==> No other translation unit can read/write to the variables. In fact, the variables are only defined so registration work can be done at static initialization time.
 - The definition of `TorchLibraryInit` as following:
 
 ```C++

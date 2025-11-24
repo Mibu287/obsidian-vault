@@ -2,7 +2,7 @@
 
 # 1. What is a Tensor?
 
-- a Tensor is a multi-dimensional array of single data type
+- a Tensor is a mul-dimensional array of single data type
   e.g:
 
 ```text
@@ -170,7 +170,7 @@ protected:
  *    tensor is fully initialized in all fields.  Please do not write new code
  *    that depends on these uninitialized states.
  */
-struct C10_API TensorImp
+struct C10_API TensorImpl
   Storage storage_;
   std::unique_ptr<c10::AutogradMetaInterface> autograd_meta_ = nullptr;     std::unique_ptr<c10::ExtraMeta> extra_meta_ = nullptr;
   c10::VariableVersion version_counter_;
@@ -189,3 +189,4 @@ struct C10_API TensorImp
 - Refer [[TypeMeta]] for more information about `TypeMeta`
 - Refer [[Tensor Storage]] for more information about `Storage`
 - Refer [[Dispatcher#1.2. Dispatch Key Set]] for more information about `DispatchKeySet`
+- Refer [[AutogradMeta]] to for more information about `AutogradMetaInterface`
