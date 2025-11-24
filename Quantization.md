@@ -73,4 +73,14 @@ The algorithm is roughly as following:
 
 E.g:
 Input data has 256 * 2^N observations, expected bin count is 256.
-h is number of levels. Since each level add 
+h is number of levels. Since each level add error to final cut ==> each level is required to maintain 1 / (256 * h) error budget (refer to the xgboost paper for more info) ==> budget space is (256 * h).
+Find minimum h satisfy 2^h * (256 * h) > 256 * 2^N
+Space requirement = O(h^2)
+
+==> Space requirement grow roughly at magnitude of logarithm of input size (slow growth)
+
+When the whole dataset is ingested, the quantile sketch is used to make bins of roughly equal weight. Then the sketch is dropped.
+
+
+# 2. Histogram
+
