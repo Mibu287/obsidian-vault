@@ -20,6 +20,20 @@ struct WQSummary {
     /*! \brief the value of data */
     DType value{};
   };
+  
+  struct Queue {
+    // entry in the queue
+    struct QEntry {
+      // value of the instance
+      DType value;
+      // weight of instance
+      RType weight;
+    };
+    // the input queue
+    std::vector<QEntry> queue;
+    // end of the queue
+    size_t qtail;
+  };
  
   /*! \brief data field */
   Entry *data;
@@ -30,6 +44,20 @@ struct WQSummary {
 ```c++
 template<typename DType, typename RType, class TSummary>
 class QuantileSketchTemplate {
-
+  typename Summary::Queue inqueue;
+  // number of levels
+  size_t nlevel;
+  // size of summary in each level
+  size_t limit_size;
+  // the level of each summaries
+  std::vector<Summary> level;
+  // content of the summary
+  std::vector<Entry> data;
+  // temporal summary, used for temp-merge
+  SummaryContainer temp;
 };
+
+template<typename DType, typename RType = unsigned>
+class WQuantileSketch :
+      public QuantileSketchTemplate<DType, RType, WQSummary<DType, RType> > { };
 ```
