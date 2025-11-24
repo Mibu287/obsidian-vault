@@ -84,3 +84,4 @@ When the whole dataset is ingested, the quantile sketch is used to make bins of 
 
 # 2. Histogram
 
+After data is put into bins, a histogram is calculated (sum of grad, hessian values). The histogram is needed to 
