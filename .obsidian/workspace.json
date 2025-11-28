@@ -11,10 +11,14 @@
             "id": "77a138f1b81fc582",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "JAX/Functional Programming with JAX.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Functional Programming with JAX"
             }
           }
         ]
@@ -138,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "JAX/Functional Programming with JAX.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Functional Programming with JAX"
             }
           }
         ],
@@ -167,6 +172,7 @@
   },
   "active": "77a138f1b81fc582",
   "lastOpenFiles": [
+    "JAX/Illustrated Implementation.md",
     "security/Reversed Shell.md",
     "Others.md",
     "Quantization.md",
@@ -176,7 +182,6 @@
     "cuda/Hardware architectures.md",
     "JAX/Functional Programming with JAX.md",
     "JAX/Tracing.md",
-    "JAX/Illustrated Implementation.md",
     "JAX",
     "pytorch/AutoGrad/AutogradMeta.md",
     "pytorch/AutoGrad/Backward gradient.md",
