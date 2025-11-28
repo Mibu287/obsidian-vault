@@ -131,4 +131,24 @@ def wraps(
 ```
 
 Function `wraps` change meta data of the wrapper to match that of the wrapped.
-``
+`wraps` does not change any behaviors of the wrapper function.
+
+Why? Hide implementation details so readers do not need to care about the wrapper.
+
+# 4. function `api_boundary`
+
+Call the wrapped function inside a try-catch statement for error handling and debugging purposes.
+
+# 5. `api_boundary` & `wraps` together
+
+**Minimal example:**
+
+```python
+@api_boundary
+def transform(f):
+    @wrap(f)
+    @api_boundary
+    def impl(*args, **kwargs):
+        ...
+    return impl  
+```
