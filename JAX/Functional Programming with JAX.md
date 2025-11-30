@@ -196,3 +196,25 @@ In expanded form:
 
 `tranformation2 = Partial(partial, transformation2_)` in which `transformation2_` is the originally defined function.
 
+Uses of `tranformations`:
+
+```python
+@transformation2
+def foobar(f: Callable, ...):
+    ...
+```
+
+In expanded form:
+
+```
+foobar = Partial(tranformation2_, foobar_)
+```
+
+When `foobar` is called with `result = foobar(fun, *static_args)`, it expand to:
+
+```
+result = transformation2_(foobar_, fun: WrappedFun, *static_args)
+       = fun.wrap(foobar_, *static_args) # type: WrappedFun
+```
+
+In short: a function wrapped by `transformation2` does not called with its own signature. Instead the signature is `(WrappedFunc, tuple[`
