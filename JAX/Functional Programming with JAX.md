@@ -163,4 +163,16 @@ transformed_func = transform(my_func)
 transformed_func(...)
 ```
 
-1. Definition:
+1. **Definition**: The `transform` function is wrapped by `api_boundary` ==> anytime `transform` is called, it is called inside a try-catch statement.
+2. **Transform**: `transform` is called with argument is `my_func`. It take return inner `impl` function (which contains reference to `my_func` and can call `my_func` to do work). The `impl` function is also wrapped by `api_boundary` so every time it is called, it is called inside a try-catch statement. The `impl` function is also wrapped inside `wraps` which change its metadata like documentation, signature, name, path, ...
+3. **Call the transformed**: When the transformed is called, first it is put inside a try-catch statement due to the wrapper `api_boundary`. Then the body of `impl` function is called.
+
+Some variants of this pattern:
+
+```python
+@partial(api_boundary, repro_api_name="foobar")
+def transform(f):
+    ...
+```
+
+==> Same thing as above but the `api_boundary` wrapper has 1 more keyword argument. Whereas in the above example, it must use default argument.
