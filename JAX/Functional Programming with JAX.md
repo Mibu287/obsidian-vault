@@ -232,9 +232,22 @@ fun.call_wrapped(*args, **kwargs)`
 In a more complex scenario with more layers of transformers:
 
 ```
-fun.f_transformed = Partial(Partial(Partial(foo), bar), spam)
+fun.f_transformed = Partial(spam, Partial(bar, Partial(foo)))
 fun.call_wrapped(...)
-|- Partial(Partial(Partial(foo), bar), spam)(...)
-   |- Partial(Partial(foo), bar, spam, ...)
-      |- 
+|- Partial(spam, Partial(bar, Partial(foo)))(...)
+   |- spam(Partial(bar, Partial(foo)), ...)
+      |- spam do something and call Partial(bar, Partial(foo))(...)
+         |- bar(Partial(foo), ...)
+            |- bar do something and call Partial(foo)(...)
+               |- foo(...)
+
+then returns in reversed order.
 ```
+
+In short: transformations are composable. Each transformation take a transformed function as its input. The latter transformation wrap the former transformation.
+
+At execution time: 
+- Latter (outer) transformation is called first. 
+- It performed its logic and call former (inner) transformation. 
+- The inner transformation recursively follow the same logic.
+- When inner transformation return, the outer perform some more logic and return.
