@@ -173,6 +173,7 @@
   "active": "77a138f1b81fc582",
   "lastOpenFiles": [
     "JAX/Illustrated Implementation.md",
+    "JAX/Functional Programming with JAX.md",
     "security/Reversed Shell.md",
     "Others.md",
     "Quantization.md",
@@ -180,7 +181,6 @@
     "rust-lang/Macros.md",
     "xgboost",
     "cuda/Hardware architectures.md",
-    "JAX/Functional Programming with JAX.md",
     "JAX/Tracing.md",
     "JAX",
     "pytorch/AutoGrad/AutogradMeta.md",

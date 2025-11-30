@@ -176,3 +176,23 @@ def transform(f):
 ```
 
 ==> Same thing as above but the `api_boundary` wrapper has 1 more keyword argument. Whereas in the above example, it must use default argument.
+
+# 6. Function `transformation2`
+
+```python
+@curry
+def transformation2(gen, fun: WrappedFun, *gen_static_args) -> WrappedFun:
+  """Adds one more transformation to a WrappedFun.
+
+  Args:
+    gen: the transformation generator function
+    fun: a WrappedFun on which to apply the transformation
+    gen_static_args: static args for the generator function
+  """
+  return fun.wrap(gen, gen_static_args, None)
+```
+
+In expanded form:
+
+`tranformation2 = Partial(partial, transformation2_)` in which `transformation2_` is the originally defined function.
+
