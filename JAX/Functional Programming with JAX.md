@@ -217,4 +217,24 @@ result = transformation2_(foobar_, fun: WrappedFun, *static_args)
        = fun.wrap(foobar_, *static_args) # type: WrappedFun
 ```
 
-In short: a function wrapped by `transformation2` does not called with its own signature. Instead the signature is `(WrappedFunc, tuple[`
+In short: a function wrapped by `transformation2` does not called with its own signature. Instead the signature is `(WrappedFun, *Any) -> WrappedFun`
+
+When is `foobar` is actually called? When the wrapped function is called.
+
+E.g: 
+```plaintext
+fun.call_wrapped(*args, **kwargs)`
+|- Partial(foobar_, f, gen_static_args)(*args, **kwargs)
+   |- foobar_(f, *gen_static_args, *args, **kwargs)
+      |- call f at some point with some arguments.
+```
+
+In a more complex scenario with more layers of transformers:
+
+```
+fun.f_transformed = Partial(Partial(Partial(foo), bar), spam)
+fun.call_wrapped(...)
+|- Partial(Partial(Partial(foo), bar), spam)(...)
+   |- Partial(Partial(foo), bar, spam, ...)
+      |- 
+```
