@@ -144,6 +144,7 @@ Call the wrapped function inside a try-catch statement for error handling and de
 **Minimal example:**
 
 ```python
+# 1. Definition
 @api_boundary
 def transform(f):
     @wrap(f)
@@ -151,4 +152,15 @@ def transform(f):
     def impl(*args, **kwargs):
         ...
     return impl  
+
+def my_func(*args, **kwargs):
+    ...
+
+# 2. Transform the custom function
+transformed_func = transform(my_func)
+
+# 3. Call the transformed function
+transformed_func(...)
 ```
+
+1. Definition:
