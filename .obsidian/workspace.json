@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JAX/Jax Array.md",
+                "file": "JAX/Tracing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Jax Array"
+              "title": "Tracing"
             }
           }
         ],
@@ -157,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JAX/Jax Array.md",
+                "file": "JAX/Tracing.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Jax Array"
+              "title": "Outline of Tracing"
             }
           }
         ],
@@ -185,11 +185,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b9d15d1400b01bbd",
+  "active": "2547aa63a0d487df",
   "lastOpenFiles": [
-    "JAX/Functional Programming with JAX.md",
-    "JAX/Jax Array.md",
     "JAX/Illustrated Implementation.md",
+    "JAX/Jax Array.md",
+    "JAX/Functional Programming with JAX.md",
     "security/Reversed Shell.md",
     "Others.md",
     "Quantization.md",
