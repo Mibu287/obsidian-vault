@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "3c2bcc33213419c0",
+        "id": "f541751ab0e8a574",
         "type": "tabs",
         "children": [
           {
-            "id": "47c3e7ea26d612a7",
+            "id": "affde55c90535388",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.11.7"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.7"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -168,7 +166,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "47c3e7ea26d612a7",
+  "active": "affde55c90535388",
   "lastOpenFiles": [
     "JAX/Functional Programming with JAX.md",
     "JAX/Tracing.md",
