@@ -12,11 +12,11 @@ It support a wide range of cryptography algorithms like RSA, Elliptic Curves, SH
 
 # 2. Using OpenSSL as CLI tool
 
-## 1. Overview
+## 2.1. Overview
 
 `openssl` command has subcommands to do specific job. E.g. `openssl rsa` can do works related to RSA algorithm like: sign/verify, encryption/decryption, ...
 
-## 2. Generate private key
+## 2.2. Generate private key
 
 `openssl genrsa -out private-key.pem 2048`
 `openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out private-key.pem`
@@ -34,7 +34,7 @@ Analysis of the command:
 
 The private key can be used to sign/verify, encrypt/decrypt.
 
-# 3. Request for signing
+# 2.3. Request for signing
 
 Given private/public key pair, only the public key and some metadata (organization name, domain name, ...) are sent to some trusted authority to be cryptographically signed. Those trusted authority is called Certificate Authority (CA). After the certificate is signed, a chain of trust is established, any devices which trust the CA can verify that the signature is valid and can trust the new device.
 
@@ -107,7 +107,7 @@ The request file contains:
 
 **NOTE**: no private key is sent.
 
-# 4. Sign the requests
+# 2.4. Sign the requests
 
 Receiver can sign requests using `openssl`
 
@@ -179,9 +179,8 @@ Certificate:
 ```
 
 The certificate contains:
-
 - Public key
 - Metadata
-- Signature (signed by the private key)
+- Signature (signed by the signer - Certificate Authority)
 
-**NOTE**: no private key is sent.
+The signed certificate can be used as TLS certificate, Active Directory, ...
