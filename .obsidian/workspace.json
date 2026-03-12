@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "security/OpenSSL.md",
+                "file": "network/Server Message Block.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OpenSSL"
+              "title": "Server Message Block"
             }
           }
         ]
@@ -172,8 +172,8 @@
   },
   "active": "f630081f49ce271c",
   "lastOpenFiles": [
-    "security/Reversed Shell.md",
     "security/OpenSSL.md",
+    "security/Reversed Shell.md",
     "Untitled",
     "network/Server Message Block.md",
     "network",

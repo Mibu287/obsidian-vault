@@ -8,5 +8,3 @@
 - Can be used to share files/printers across networks. E.g. on Windows, users can map network drives and access them like a local drives. Under the hood, the local computer connect to the remote computer - which has the network drives using SMB protocol.
 - Can be used for inter-process communication. E.g. DCE/RPC (Distributed computing environment / Remote procedure call) protocol mainly use SMB as its transport protocol.
 - Support Kerberos in authentication
-
-
