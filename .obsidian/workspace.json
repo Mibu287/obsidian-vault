@@ -27,16 +27,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network/Server Message Block.md",
+                "file": "security/Reversed Shell.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Server Message Block"
+              "title": "Reversed Shell"
+            }
+          },
+          {
+            "id": "f630081f49ce271c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "security/OpenSSL.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "OpenSSL"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -185,9 +199,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c077d4b48aafd9c1",
+  "active": "f630081f49ce271c",
   "lastOpenFiles": [
     "security/Reversed Shell.md",
+    "security/OpenSSL.md",
+    "Untitled",
     "network/Server Message Block.md",
     "network",
     "cuda/Hardware architectures.md",
@@ -219,7 +235,6 @@
     "pytorch/AutoGrad",
     "cuda",
     "rust-lang",
-    "Wifi protected setup.md",
     "security",
     "pytorch"
   ]
