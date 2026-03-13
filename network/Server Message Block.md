@@ -12,4 +12,4 @@
 # 2. SMB named pipe
 
 SMB protocol support named pipe in which 2 processes (either in the same or different machines) can communicate using read/write file API. In which, each process open the named pipe URL to get a file handle. Then, the 2 processes can read/write from the handle.
-Under the hood, 
+Under the hood, read/write functions are converted to network operations (Write: message sent, Read: Message received).
