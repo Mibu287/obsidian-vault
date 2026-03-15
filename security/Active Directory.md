@@ -10,4 +10,22 @@
 # 2. Terminology
 
 - **Object**: Any resources managed by active directory. E.g. users, computers, printers, ...
-- **Schema**: Blueprint for AD object. In object-oriented terminology, schema is l
+- **Schema**: Blueprint for AD object. In object-oriented terminology, schema is class which defined which attributes objects can have. E.g:
+```
+Schema defines the CLASS:          AD stores the INSTANCES:
+─────────────────────────          ───────────────────────
+User (class)                       John Smith (object)
+  ├── firstName (attribute)          ├── firstName = "John"
+  ├── lastName (attribute)           ├── lastName = "Smith"
+  ├── email (attribute)              ├── email = "john@corp.com"
+  └── password (attribute)           └── password = [hash]
+
+Computer (class)                   DESKTOP-001 (object)
+  ├── name (attribute)               ├── name = "DESKTOP-001"
+  ├── OS (attribute)                 ├── OS = "Windows 11"
+  └── SID (attribute)                └── SID = "S-1-5-21-..."
+```
+
+- **Attribute**: An attribute is a data field in schema. An object can has multiple attributes which define its properties. E.g: an user may has attributes like: name, email, password, ...
+- **Domain**: Logical collection of AD object. E.g. in a large corporation, each department/branch can be a separated domain: branch1.corp, branch2.corp, ... Domains can operate independently or can be connected with each other via trust relationship.
+- **Tree**: A collection of AD domain which begins with the same root domain. A domain can be added to be a child
