@@ -28,4 +28,7 @@ Computer (class)                   DESKTOP-001 (object)
 
 - **Attribute**: An attribute is a data field in schema. An object can has multiple attributes which define its properties. E.g: an user may has attributes like: name, email, password, ...
 - **Domain**: Logical collection of AD object. E.g. in a large corporation, each department/branch can be a separated domain: branch1.corp, branch2.corp, ... Domains can operate independently or can be connected with each other via trust relationship.
-- **Tree**: A collection of AD domain which begins with the same root domain. A domain can be added to be a child
+- **Tree**: A collection of AD domain which begins with the same root domain. A domain can be added to be a child-domain of an existing domain.
+- **Forrest**: At the top level, AD server manage a forest of domains i.e collection of all trees.
+- **Global Unique Identifier**: when a object is added to a domain, it is assigned a GUID which stored in its `objectGUID` attribute. The `objectGUID` attribute never change as long as the object exist in the domain.
+- **Security principal**: is the term is used in the context of authentication. 
