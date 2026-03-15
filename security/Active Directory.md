@@ -32,4 +32,6 @@ Computer (class)                   DESKTOP-001 (object)
 - **Forrest**: At the top level, AD server manage a forest of domains i.e collection of all trees.
 - **Global Unique Identifier**: when a object is added to a domain, it is assigned a GUID which stored in its `objectGUID` attribute. The `objectGUID` attribute never change as long as the object exist in the domain.
 - **Security principal**: is the term is used in the context of authentication. When a user, computer attempt to authenticate themselves to the AD server, they are considered security principals.
-- **Global catalog**: is a domain controller which contains 
+- **Security Identifier (SID)**: is an unique ID assigned to each security principal which can be used for authentication.
+- **Global catalog**: is a domain controller which contains all objects in an AD forest.
+- **NTDS.DIT**: The NTDS.DIT file can be considered the heart of Active Directory. It is stored on a Domain Controller at `C:\Windows\NTDS\` and is a database that stores AD data such as information about user and group objects, group membership, and, most important to attackers and penetration testers, the password hashes for all users in the domain.
