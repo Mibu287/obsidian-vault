@@ -31,4 +31,5 @@ Computer (class)                   DESKTOP-001 (object)
 - **Tree**: A collection of AD domain which begins with the same root domain. A domain can be added to be a child-domain of an existing domain.
 - **Forrest**: At the top level, AD server manage a forest of domains i.e collection of all trees.
 - **Global Unique Identifier**: when a object is added to a domain, it is assigned a GUID which stored in its `objectGUID` attribute. The `objectGUID` attribute never change as long as the object exist in the domain.
-- **Security principal**: is the term is used in the context of authentication. 
+- **Security principal**: is the term is used in the context of authentication. When a user, computer attempt to authenticate themselves to the AD server, they are considered security principals.
+- **Global catalog**: is a domain controller which contains 
