@@ -34,5 +34,5 @@ Computer (class)                   DESKTOP-001 (object)
 - **Security principal**: is the term is used in the context of authentication. When a user, computer attempt to authenticate themselves to the AD server, they are considered security principals.
 - **Security Identifier (SID)**: is an unique ID assigned to each security principal which can be used for authentication.
 - **Global catalog**: is a domain controller which contains all objects in an AD forest.
-- **LDAP**: i.e. Lightweight Directory Access Protocol is an open-standard protocol to talk to directory service server.
+- **LDAP**: i.e. Lightweight Directory Access Protocol is an open-standard protocol to talk to directory service server. LDAP can be used for authenticate, ad
 - **NTDS.DIT**: The NTDS.DIT file can be considered the heart of Active Directory. It is stored on a Domain Controller at `C:\Windows\NTDS\` and is a database that stores AD data such as information about user and group objects, group membership, and, most important to attackers and penetration testers, the password hashes for all users in the domain.
