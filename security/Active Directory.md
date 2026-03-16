@@ -34,5 +34,21 @@ Computer (class)                   DESKTOP-001 (object)
 - **Security principal**: is the term is used in the context of authentication. When a user, computer attempt to authenticate themselves to the AD server, they are considered security principals.
 - **Security Identifier (SID)**: is an unique ID assigned to each security principal which can be used for authentication.
 - **Global catalog**: is a domain controller which contains all objects in an AD forest.
-- **LDAP**: i.e. Lightweight Directory Access Protocol is an open-standard protocol to talk to directory service server. LDAP can be used for authenticate, ad
+- **LDAP**: i.e. Lightweight Directory Access Protocol is an open-standard protocol to talk to directory service server. LDAP can be used for authenticate, add/modify/delete/read entry.
 - **NTDS.DIT**: The NTDS.DIT file can be considered the heart of Active Directory. It is stored on a Domain Controller at `C:\Windows\NTDS\` and is a database that stores AD data such as information about user and group objects, group membership, and, most important to attackers and penetration testers, the password hashes for all users in the domain.
+
+# 3. Authentication protocol
+
+## 3.1. NTLM
+
+NTLM (NT Lan Manager) is an protocol for authenticating users. It's often used as the fallback protocol in case Kerberos not available.
+
+How it works?
+
+- A client with attempt to login with username / password pair.
+- The server send some challenge bytes to the client
+- Client compute response: Function(NTLM_HASH(password), server_challenge, client_challenge)
+- Server recompute the response and compare with client's. If matched, the client is authenticated.
+
+**NOTE**:
+A man-in-the-middle does not need clear text password. Only the NTLM_HASH of the password is sufficient to authenticate. If the server database is breached and hashed password is leaked, any attackers can use these hashes to login. This type of attack is called pass-the-hash.
