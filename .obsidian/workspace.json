@@ -11,10 +11,14 @@
             "id": "4b02dbc4d9dbeb17",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "JAX/Functional Programming with JAX.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Functional Programming with JAX"
             }
           }
         ]
@@ -168,6 +172,9 @@
   },
   "active": "4b02dbc4d9dbeb17",
   "lastOpenFiles": [
+    "JAX/Tracing.md",
+    "JAX/Illustrated Implementation.md",
+    "JAX/Functional Programming with JAX.md",
     "rust-lang/Macros.md",
     "security/Active Directory.md",
     "cuda/Hardware architectures.md",
@@ -176,9 +183,6 @@
     "security/Reversed Shell.md",
     "Untitled",
     "network",
-    "JAX/Functional Programming with JAX.md",
-    "JAX/Tracing.md",
-    "JAX/Illustrated Implementation.md",
     "JAX/Jax Array.md",
     "Others.md",
     "Quantization.md",
