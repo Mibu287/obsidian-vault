@@ -20,21 +20,8 @@
               "icon": "lucide-file",
               "title": "Functional Programming with JAX"
             }
-          },
-          {
-            "id": "9a1dbec4056d7d0e",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.12.7"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.12.7"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -183,7 +170,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9a1dbec4056d7d0e",
+  "active": "4b02dbc4d9dbeb17",
   "lastOpenFiles": [
     "JAX/Tracing.md",
     "JAX/Illustrated Implementation.md",
