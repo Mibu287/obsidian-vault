@@ -24,4 +24,4 @@
     - value: read 4 bytes to determine data type. Then depends on data type, read the content.
     - Move on to the next key-value pair
 - Next section: tensor info. The section contain all metadata of all the tensors (i.e. name, shape, type, offsets, ...). The information is packed together. The GGUF reader must read information about each tensor sequentially until the end.
-- Data section: This section contain actual data of all tensors. Based on metadata of the previous section, reader seek to 
+- Data section: This section contain actual data of all tensors. Based on metadata of the previous section, reader seek to the tensor to read its data. Note: tensor data are numbers (int, float, double, mixed, ...). Tensor data are store continuously like how it is stored in memory ==> reader can mmap the file region to memory and work on it (no conversion needed). 
