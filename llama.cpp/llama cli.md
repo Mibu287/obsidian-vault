@@ -10,4 +10,5 @@ The main thread and worker threads communicate using 2 queues:
 - `queue_tasks` to store tasks to be done
 - `queue_results` to store results/partial results
 
-Results are computed piece by piece and streamed to consumers
+Results are computed piece by piece and streamed to consumers.
+
