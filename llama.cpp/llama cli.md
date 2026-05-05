@@ -12,3 +12,4 @@ The main thread and worker threads communicate using 2 queues:
 
 Results are computed piece by piece and streamed to consumers.
 
+# 2. Memory allocation for 
