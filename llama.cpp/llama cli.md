@@ -12,4 +12,10 @@ The main thread and worker threads communicate using 2 queues:
 
 Results are computed piece by piece and streamed to consumers.
 
-# 2. Memory allocation for 
+# 2. Memory allocation
+
+## 2.1. Input parameters
+
+Input parameters are read from GGUF file and is "mmaped" into main memory. Each input tensor contain a pointer to a chunk of this memory arena.
+
+## 2.2. Intermediate and output tensors
