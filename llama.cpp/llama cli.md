@@ -73,4 +73,4 @@ Input parameters are read from GGUF file and is `mmaped` into main memory. Each 
 - Allocate the memory pool planned in the previous step.
 - Each tensor's data pointer is filled with chunk infos in step 2.
 
-**NOTE**: `llama.cpp` try to allocate as fewer times as possible to avoid fragmentation and enhance cache locality. 
+**NOTE**: `llama.cpp` try to allocate as fewer times as possible to avoid fragmentation and enhance cache locality. The library follow memory arena model in which a large chunk of memory is allocate (which is planned to be enough for the job), each participant object take a portion from the memory chunk to service its needs.
