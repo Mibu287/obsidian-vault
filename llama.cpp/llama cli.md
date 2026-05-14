@@ -80,3 +80,4 @@ Input parameters are read from GGUF file and is `mmaped` into main memory. Each 
 - Compute graph can be split into multiple devices if available. E.g. If 4 GPUs can be accesses, compute graph is put on both GPUs.
 - By default, graph is split by layers (i.e. input layer, repeating attention layers, output layer).
 - Number of layers allocated to each device is calculated based on amount of free memory in each device.
+- Tensor generated in 1 split and consumed by others is duplicated in consumer split. At inference time, that tensor's data is copied from producer device to consumer device(s).
