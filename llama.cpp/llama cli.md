@@ -77,4 +77,6 @@ Input parameters are read from GGUF file and is `mmaped` into main memory. Each 
 
 ## 3.3. Split graph
 
-- Compute graph can be split into multiple devices if available. E.g. If 4 GPUs can be accesses, compute graph is put on both GPUs. By default, graph is split by layers (i.e. input layer, repeating attention layer,  )
+- Compute graph can be split into multiple devices if available. E.g. If 4 GPUs can be accesses, compute graph is put on both GPUs.
+- By default, graph is split by layers (i.e. input layer, repeating attention layers, output layer).
+- Number of layers allocated to each device is calculated based on amount of free memory in each device.
