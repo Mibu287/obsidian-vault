@@ -132,7 +132,6 @@ scheduler()
       → yield() releases p->lock and returns
         → usertrap() resumes after yield() call
           → prepare_return()
-          → usertrap() returns satp
             → userret (trampoline.S)
 ```
 
