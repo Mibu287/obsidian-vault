@@ -46,9 +46,104 @@ The function is still executed by all CPU cores. However, common work is done by
 - If none available, it goto sleep waiting for interrupt. 
 - If a runnable thread is found, the scheduler function call `swtch` to switch to the process context and run.
 
-# 6. `swtch`
+# 6. `swtch`
 
-Function signature
-`void swtch(struct context* cpu_ctx, struct context* proc_ctx);`
+Function signature: `void swtch(struct context* old_ctx, struct context* new_ctx);`
 
-The function is implemented in assembly code which 
+The function is implemented in assembly code which:
+
+- Saves `ra`, `sp`, and callee-saved registers (`s0`-`s11`) of the **old** context to `old_ctx`.
+- Loads `ra`, `sp`, and callee-saved registers from `new_ctx`.
+- Executes `ret` → jumps to the loaded `ra` of the new context.
+
+> **Note:** `swtch` only saves callee-saved registers because it is called as a normal C function. The caller already follows calling convention and has saved any caller-saved registers it cares about. This is in contrast to `uservec` (see below), which must save **all** registers.
+
+# 7. User Process Runs
+
+After `scheduler` calls `swtch`, the CPU is now running the user process's **kernel thread**. Eventually the kernel returns to user space via `userret` + `sret` (see section 10), and the user process executes its instructions in user privilege.
+
+# 8. Interrupt from User Process → `uservec`
+
+When a user process is interrupted (timer, syscall, page fault, etc.):
+
+- Hardware automatically switches privilege to supervisor mode.
+- `stvec` register (set to point to `uservec` in trampoline) takes control.
+- `uservec` runs in supervisor mode **but still using the user page table**.
+
+**What `uservec` does:**
+
+- Saves **all** user registers (`ra`, `sp`, `gp`, `tp`, `t0`-`t6`, `a0`-`a7`, `s0`-`s11`) to the process's `trapframe`.
+
+> **Note:** All registers must be saved here (not just callee-saved) because the interrupt does not follow the C calling convention — any register could have been in use at the moment of interruption.
+
+- Loads kernel stack pointer, kernel page table, and kernel `hartid` from the trap frame (values were stored there before returning to user last time).
+- Switches to the kernel page table.
+- Calls `usertrap`.
+
+# 9. `usertrap`
+
+Now executing in full kernel context (kernel page table, kernel stack):
+
+- Switches `stvec` to `kernelvec` (trap handler for kernel-mode traps).
+- Saves `sepc` (user program counter) to `trapframe->epc`. 
+- Identifies the cause of the trap (`scause`): 
+    - `8` → system call → calls `syscall()`
+    - timer interrupt (`which_dev == 2`) → calls `yield()`
+    - page fault → calls `vmfault()`
+    - otherwise → marks process as killed
+- After handling, calls `prepare_return()` which sets up `sstatus`, `sepc`, and `stvec` for the return to user space. 
+- Returns `satp` (user page table address) → this return lands in `userret` (see below).
+ 
+# 10. `yield` + `sched` → Back to Scheduler
+
+For a timer interrupt, `usertrap` calls `yield`:
+
+```
+usertrap()
+  → yield()         # acquires p->lock, sets state = RUNNABLE
+    → sched()       # validates kernel invariants
+      → swtch(&p->context, &cpu->context)
+                    # saves process's kernel context (ra points back into sched)
+                    # loads scheduler's context
+                    # ret → jumps into scheduler()
+```
+
+Control is now back in `scheduler()`, right after its own `swtch` call. The scheduler loop continues looking for the next runnable process.
+
+# 11. Returning to User Space
+
+When the scheduler picks this (or another) process and calls `swtch(&cpu->context, &p->context)`, the following unwind happens:
+
+```
+scheduler()
+  → swtch returns inside sched()   # restores process's kernel context
+    → sched() returns
+      → yield() releases p->lock and returns
+        → usertrap() resumes after yield() call
+          → prepare_return()       # sets stvec, sstatus.SPP=0, sepc
+          → usertrap() returns satp
+            → userret (trampoline.S)
+```
+
+> **Note:** `userret` is reached via the normal C `return` from `usertrap`. This works because `uservec` called `usertrap` with `jalr t0`, which stored the address of `userret` (the very next label in trampoline.S) into `ra`.
+
+**What `userret` does:**
+
+- Switches back to the user page table (using the returned `satp`).
+- Restores **all** registers from `trapframe`.
+- Executes `sret` → privilege drops to user mode, PC jumps to `trapframe->epc` (the user's next instruction).
+
+---
+
+The full round-trip for a timer interrupt looks like this:
+
+```
+user process
+  → [timer interrupt] → uservec → usertrap → yield → sched → swtch
+                                                                 ↓
+                                                          scheduler loop
+                                                                 ↓
+                                                    swtch → sched → yield → usertrap → prepare_return → userret → sret
+                                                                                                                     ↓
+                                                                                                            user process
+```
