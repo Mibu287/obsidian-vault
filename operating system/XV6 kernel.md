@@ -112,15 +112,26 @@ Control is now back in `scheduler()`, right after its own `swtch` call. The sche
 
 # 11. Returning to User Space
 
-When the scheduler picks this (or another) process and calls `swtch(&cpu->context, &p->context)`, the following unwind happens:
+When the scheduler picks a process and calls `swtch(&cpu->context, &p->context)`, the destination depends on whether this is the process's first scheduling:
+
+**First time the process is scheduled** (`p->context.ra = forkret`, set by `allocproc`):
 
 ```
 scheduler()
-  → swtch returns inside sched()   # restores process's kernel context
+  → swtch lands in forkret()     # does first-time setup (e.g. filesystem init for init proc)
+    → usertrapret() / prepare_return()
+      → userret (trampoline.S)
+```
+
+**Every subsequent scheduling** (`p->context.ra` = saved return address inside `sched()`):
+
+```
+scheduler()
+  → swtch lands inside sched()   # resumes where the process last called swtch
     → sched() returns
       → yield() releases p->lock and returns
         → usertrap() resumes after yield() call
-          → prepare_return()       # sets stvec, sstatus.SPP=0, sepc
+          → prepare_return()
           → usertrap() returns satp
             → userret (trampoline.S)
 ```
@@ -133,9 +144,7 @@ scheduler()
 - Restores **all** registers from `trapframe`.
 - Executes `sret` → privilege drops to user mode, PC jumps to `trapframe->epc` (the user's next instruction).
 
----
-
-The full round-trip for a timer interrupt looks like this:
+The full round-trip for a timer interrupt (after first scheduling) looks like:
 
 ```
 user process
@@ -143,7 +152,7 @@ user process
                                                                  ↓
                                                           scheduler loop
                                                                  ↓
-                                                    swtch → sched → yield → usertrap → prepare_return → userret → sret
-                                                                                                                     ↓
-                                                                                                            user process
+                                              swtch → sched → yield → usertrap → prepare_return → userret → sret
+                                                                                                               ↓
+                                                                     
 ```
