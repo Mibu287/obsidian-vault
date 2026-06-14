@@ -60,7 +60,7 @@ The function is implemented in assembly code which:
 
 # 7. User Process Runs
 
-After `scheduler` calls `swtch`, the CPU is now running the user process's **kernel thread**. Eventually the kernel returns to user space via `userret` + `sret` (see section 10), and the user process executes its instructions in user privilege.
+After `scheduler` calls `swtch`, the CPU is now running the user process's **kernel thread**. Eventually the kernel returns to user space via `userret` + `sret` (see section 11), and the user process executes its instructions in user privilege.
 
 # 8. Interrupt from User Process → `uservec`
 
@@ -118,12 +118,12 @@ When the scheduler picks a process and calls `swtch(&cpu->context, &p->context)`
 
 ```
 scheduler()
-  → swtch lands in forkret()     # does first-time setup (e.g. filesystem init for init proc)
-    → usertrapret() / prepare_return()
+  → swtch lands in forkret()  # does first-time setup (e.g. filesystem init for init proc)
+    → prepare_return()
       → userret (trampoline.S)
 ```
 
-**Every subsequent scheduling** (`p->context.ra` = saved return address inside `sched()`):
+**Every subsequent scheduling** (`p->context.ra` = saved return address inside `sched()`:
 
 ```
 scheduler()
