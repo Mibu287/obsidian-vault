@@ -35,8 +35,7 @@
               "title": "Dynamic memory allocation"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -195,10 +194,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fcc8ec66ab5bb3dc",
+  "active": "6e5bf3b125685c16",
   "lastOpenFiles": [
-    "operating system/Hermit-rs/Memory System.md",
     "Dynamic memory allocation.md",
+    "operating system/Hermit-rs/Memory System.md",
     "operating system/XV6 kernel.md",
     "operating system/Hermit-rs",
     "llama.cpp/GPT2 model.md",
