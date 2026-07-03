@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "operating system/Hermit-rs/Memory System.md",
+                "file": "operating system/Hermit-rs/Mutex.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Memory System"
+              "title": "Mutex"
             }
           }
         ]
@@ -182,8 +182,9 @@
   },
   "active": "fcc8ec66ab5bb3dc",
   "lastOpenFiles": [
-    "Dynamic memory allocation.md",
     "operating system/Hermit-rs/Memory System.md",
+    "operating system/Hermit-rs/Mutex.md",
+    "Dynamic memory allocation.md",
     "operating system/XV6 kernel.md",
     "operating system/Hermit-rs",
     "llama.cpp/GPT2 model.md",
@@ -213,7 +214,6 @@
     "pytorch/AutoGrad/Autograd Engine.md",
     "pytorch/Tensor/Dispatcher.md",
     "pytorch/Tensor/CUDA Allocator.md",
-    "pytorch/Tensor/Device.md",
     "pytorch/Tensor",
     "pytorch/AutoGrad",
     "cuda",
