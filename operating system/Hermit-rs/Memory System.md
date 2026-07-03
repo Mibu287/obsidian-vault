@@ -8,7 +8,7 @@ available yet. This note covers the riscv64 target specifically.
 - Implemented via the external `free-list` crate (`FreeList<16>`).
 - Used for both physical memory (`kernel/src/mm/physicalmem.rs`) and the
   kernel's virtual address range (`kernel/src/mm/virtualmem.rs`).
-- Internally backed by a `SmallVec<[PageRange; 16]>` — holds up to **16**
+- Internally backed by a `SmallVec<[PageRange; 16]>` - holds up to **16**
   disjoint free ranges inline before it would need to grow onto the heap.
 - `allocate()` finds the first range that fits (`PageRange::fit`), splitting
   a chunk to carve out a region of the requested size/alignment.
@@ -41,17 +41,17 @@ unsafe fn init() {
 ````
 
 - Result: freelist seeded with **128 GiB – 256 GiB**.
-- Note: this freelist covers only the _kernel's own_ virtual address range, not all of virtual memory — user-space task memory is a separate region.
+- Note: this freelist covers only the _kernel's own_ virtual address range, not all of virtual memory - user-space task memory is a separate region.
 
 ## 4. The Chicken-and-Egg Problem
 
-- The global allocator (`ALLOCATOR: Talck`) isn't claimed until the very end of `mm::init()` — nothing can use `Box`/`Vec` before that point.
-- Danger: allocating/freeing physical or virtual ranges fragments the freelist. If fragmentation ever exceeds the 16-slot inline `SmallVec` capacity, the freelist itself would need to grow — which means calling the (not-yet-ready) global allocator.
-- The real safety margin is that 16-slot inline capacity, not "it's a Vec so it might reallocate" in the abstract — early boot just needs to keep fragmentation low enough to stay inline.
+- The global allocator (`ALLOCATOR: Talck`) isn't claimed until the very end of `mm::init()` - nothing can use `Box`/`Vec` before that point.
+- Danger: allocating/freeing physical or virtual ranges fragments the freelist. If fragmentation ever exceeds the 16-slot inline `SmallVec` capacity, the freelist itself would need to grow - which means calling the (not-yet-ready) global allocator.
+- The real safety margin is that 16-slot inline capacity, not "it's a Vec so it might reallocate" in the abstract - early boot just needs to keep fragmentation low enough to stay inline.
 
 ## 5. Huge Pages at Startup (riscv64 specifics)
 
-- riscv64 uses **Sv39** paging (3 levels): root = `L2Table`, then `L1Table`, then `L0Table`. `HugePageSize` = 1 GiB, with `MAP_LEVEL == 2` — same level as the root table.
+- riscv64 uses **Sv39** paging (3 levels): root = `L2Table`, then `L1Table`, then `L0Table`. `HugePageSize` = 1 GiB, with `MAP_LEVEL == 2` - same level as the root table.
 - Mapping logic branches on whether the page size's level matches the current table's level (`kernel/src/arch/riscv64/mm/paging.rs:412-451`):
 
 ```rust
@@ -70,7 +70,7 @@ fn map_page<S: PageSize>(&mut self, page: Page<S>, ...) {
 }
 ```
 
-- For `HugePageSize`, `L::LEVEL == S::MAP_LEVEL` at the root table, so it takes the `else` branch — **zero** frame allocations. `LargePageSize` (2 MiB) and `BasePageSize` (4 KiB) take the allocating branch instead.
+- For `HugePageSize`, `L::LEVEL == S::MAP_LEVEL` at the root table, so it takes the `else` branch - **zero** frame allocations. `LargePageSize` (2 MiB) and `BasePageSize` (4 KiB) take the allocating branch instead.
 - This is why the heap-mapping cascade in `mm::init()` tries huge pages first (`kernel/src/mm/mod.rs:233-248`):
 
 ## 6. Heap Setup & Allocator Handoff
@@ -86,10 +86,65 @@ unsafe { ALLOCATOR.lock().claim(arena).unwrap(); }
 
 This is the exact moment dynamic allocation (`Box`, `Vec`, etc.) becomes available.
 
-## 7. Key File References
+## 7. Virtual Memory Translation (Sv39 Enable & Runtime)
 
-- `kernel/src/mm/physicalmem.rs` — physical freelist, FDT region detection
-- `kernel/src/mm/virtualmem.rs` — kernel virtual freelist, heap-end constants
-- `kernel/src/mm/mod.rs` — `init()` sequence, heap mapping cascade, allocator claim
-- `kernel/src/arch/riscv64/mm/paging.rs` — Sv39 levels, `HugePageSize` = 1 GiB, `map_page` allocation branching (lines 412-451)
-- `kernel/src/arch/riscv64/kernel/processor.rs` — `has_1gib_pages`
+### 7.1. Boot starts without translation
+
+- Full chain on riscv64: hardware reset → OpenSBI (M-mode firmware) →
+  **hermit-loader** (a separate project, S-mode, not part of this repo) →
+  Hermit kernel `_start` (`kernel/src/arch/riscv64/kernel/start.rs`).
+- OpenSBI explicitly zeroes `satp` (Bare mode) during its own hart-init
+  routine - this is a deliberate write, not just reliance on a reset
+  default - before handing off to the loader in S-mode.
+- Hermit's own `_start`/`pre_init` contains no MMU/`satp` code at all; it
+  implicitly assumes Bare mode was left in place by the loader/OpenSBI. The
+  kernel only touches `satp` once, later, in its own `enable_page_table()`.
+- So: everything before that single call - device tree parsing, physical
+  frame allocator init - runs with loads/stores going directly to physical
+  memory, no translation.
+
+### 7.2. Building the page table before translation is on
+
+- Regions (e.g. PLIC, UART, virtio devices found via the device tree) are
+  identity-mapped with `HugePageSize` *before* `crate::mm::init()` even runs
+  the physical frame allocator init - only possible because, as established
+  in §5, huge pages need none of dynamic memory allocation:
+
+- `identity_map` builds the virtual address directly from the physical one (`kernel/src/arch/riscv64/mm/paging.rs:626-638`) - `virt == phys`.
+
+### 7.3. Turning translation on
+
+- A single call writes the root table's physical page number into `satp` with `Mode::Sv39`, then flushes the TLB globally (`kernel/src/arch/riscv64/mm/paging.rs:640-653`):
+
+```rust
+fn enable_page_table() {
+    satp::set(satp::Mode::Sv39, asid, ppn); // this write IS what enables translation
+    asm::sfence_vma_all();                  // safety flush, not a separate "enable" step
+}
+```
+
+- Because the switched-on mapping is identity (`virt == phys`) for the memory the kernel is currently executing from, control flow is unaffected by the switch, i.e. no pointer fix up needed.
+
+### 7.4. Physical ↔ virtual cardinality
+
+- Default build: strictly **1:1** - every mapped physical page has exactly one identity-mapped virtual address.
+- The page table code does support one physical range being mapped at a _second_ virtual address if needed
+
+### 7.5. TLB maintenance after enabling
+
+- Once translation is live, the CPU caches translations (TLB) during page table walks. When the kernel overwrites an already-present PTE, it must explicitly flush that entry:
+
+```rust
+// only needed when overwriting an existing (already-present) entry
+page.flush_from_tlb(); // emits sfence.vma for that page
+```
+
+- New (previously-not-present) entries need no flush - only modifications to existing translations require it.
+
+## 8. Key File References
+
+- `kernel/src/mm/physicalmem.rs` - physical freelist, FDT region detection
+- `kernel/src/mm/virtualmem.rs` - kernel virtual freelist, heap-end constants
+- `kernel/src/mm/mod.rs` - `init()` sequence, heap mapping cascade, allocator claim
+- `kernel/src/arch/riscv64/mm/paging.rs` - Sv39 levels, `HugePageSize` = 1 GiB, `map_page` allocation branching (lines 412-451)
+- `kernel/src/arch/riscv64/kernel/processor.rs` - `has_1gib_pages`
