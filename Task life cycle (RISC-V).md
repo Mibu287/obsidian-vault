@@ -149,10 +149,3 @@ scheduler later marks it `Invalid`, moves it to `finished_tasks`, and
    Invalid > finished_tasks >
    cleanup_tasks() frees later
 ```
-## Key Takeaways
-
-- Everything runs in **Supervisor mode**; the "user stack" is just the task's main stack.
-- The scheduler is reached via **either** a HW timer interrupt **or** a cooperative `reschedule()` - not only interrupts.
-- A task always **resumes inside its own previous `switch_to_task`** and unwinds back up to `trap_return`/`sret`.
-- `sret` returns to `sstatus.SPP`; here `SPP == 1`, so it stays in Supervisor mode.
-Note: the whole thing above is inside one outer code fence for easy copying. When pasting into Obsidian, drop the outermost  ``markdown  fence and its closing  ``` ` so the headings render - keep the two inner fenced blocks (the resume chain and the diagram).
