@@ -10,4 +10,11 @@
 - The web server receive HTTPS request from the exit node, decrypt to get plain text request and reply back to the exit node.
 - The exit node receive the HTTPS response. It can not understand the response because it does not have the TLS session key. In only encrypt the HTTPS response using K<sub>e</sub> and forward to middle and then guard node. Finally, the guard forward the response to the client. Now the requests is encrypted in layer by K<sub>HTTPS</sub>, K<sub>e</sub>, K<sub>m</sub>, K<sub>g</sub>. The client has all the keys to decrypt and read the response.
 
-So, to summarize, TOR 
+So, to summarize, TOR protocol use TCP as transport layer and in turn, it act as transport layer for higher-level protocol like HTTP. In this protocol, only the client know about the whole circuit, other parties only know about the node above and/or below them.
+
+# 2. Connect to hidden services
+
+## 2.1. How hidden services come to be?
+
+- A hidden service is just a web service connected by the TOR network. Note: the web service listen and response to request just like a normal web service. The only difference is how the service is discovered and connected.
+- Firstly, the web admin pick a private key and derive corresponding public key and the onion address (the onion address is basically the public key with checksum and version). Note: the web admin can not pick the o
