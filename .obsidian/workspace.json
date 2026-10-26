@@ -4,19 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "cdd3f5c6887bf223",
+        "id": "02451d96055010ad",
         "type": "tabs",
         "children": [
           {
-            "id": "6520edcc0abdd361",
+            "id": "99a9319f9da966eb",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.13.7"
+                "file": "security/The Onion Router (TOR).md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.13.7"
+              "icon": "lucide-file",
+              "title": "The Onion Router (TOR)"
             }
           }
         ]
@@ -180,13 +182,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6520edcc0abdd361",
+  "active": "99a9319f9da966eb",
   "lastOpenFiles": [
+    "security/Reversed Shell.md",
+    "security/The Onion Router (TOR).md",
+    "Task life cycle (RISC-V).md",
+    "Quantization.md",
+    "security/OpenSSL.md",
+    "security/Active Directory.md",
+    "rust-lang/Macros.md",
+    "operating system/Hermit-rs/Memory System.md",
     "operating system/Hermit-rs/Mutex.md",
     "Others.md",
-    "Task life cycle (RISC-V).md",
     "foobar.md",
-    "operating system/Hermit-rs/Memory System.md",
     "Dynamic memory allocation.md",
     "operating system/XV6 kernel.md",
     "operating system/Hermit-rs",
@@ -198,22 +206,16 @@
     "llama.cpp",
     "JAX/Tracing.md",
     "JAX/Illustrated Implementation.md",
-    "rust-lang/Macros.md",
-    "security/Active Directory.md",
     "cuda/Hardware architectures.md",
     "network/Server Message Block.md",
-    "security/OpenSSL.md",
-    "security/Reversed Shell.md",
     "network",
     "JAX/Jax Array.md",
-    "Quantization.md",
     "Data handling.md",
     "xgboost",
     "JAX",
     "pytorch/AutoGrad/AutogradMeta.md",
     "pytorch/AutoGrad/Backward gradient.md",
     "pytorch/AutoGrad/Node and Edge.md",
-    "pytorch/AutoGrad/Autograd Engine.md",
     "pytorch/Tensor",
     "pytorch/AutoGrad",
     "cuda",
