@@ -17,4 +17,6 @@ So, to summarize, TOR protocol use TCP as transport layer and in turn, it act as
 ## 2.1. How hidden services come to be?
 
 - A hidden service is just a web service connected by the TOR network. Note: the web service listen and response to request just like a normal web service. The only difference is how the service is discovered and connected.
-- Firstly, the web admin pick a private key and derive corresponding public key and the onion address (the onion address is basically the public key with checksum and version). Note: the web admin can not pick the o
+- Firstly, the web admin pick a private key and derive corresponding public key and the onion address (the onion address is basically the public key with checksum and version). Note: the web admin can not pick the onion address like buying domain name for surface web. If they want the address to has certain form (e.g prefix with their business name), they must try multiple keys until find a match. The computation effort grow exponentially with the number of characters in the address required to match.
+- The web admin use the public key and the current date to derive blinded key for each day.
+- The web admin choose a number of introduction nodes from the TOR network. They create random AUTH_KEY for each introduction node, sign the AUTH_KEY with the blinded key above
