@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "security/CNAME take over.md",
+                "file": "security/DNS records.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CNAME take over"
+              "title": "DNS records"
             }
           }
         ]
@@ -185,7 +185,7 @@
   "active": "e0df101605fbf724",
   "lastOpenFiles": [
     "Data handling.md",
-    "security/CNAME take over.md",
+    "security/DNS records.md",
     "Task life cycle (RISC-V).md",
     "cuda/Hardware architectures.md",
     "misc",
