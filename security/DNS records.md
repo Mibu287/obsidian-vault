@@ -12,4 +12,7 @@ Khi đến trang `awesome.example.com`, DNS Server tìm đến bản ghi `awesom
 Giả sử `others.github.io` đã bị xoá, tin tặc có thể gửi yêu cầu github cấp cho domain cũ. Khi người dùng truy cập sẽ nhận được mã độc.
 
 
+MX là bản ghi mail ==> có thể tìm CVE của server email để khai thác
 
+NS là bản ghi name server ==> Authoritative DNS server
+Zone transfer
