@@ -13,6 +13,6 @@ Giả sử `others.github.io` đã bị xoá, tin tặc có thể gửi yêu c�
 
 
 MX là bản ghi mail ==> có thể tìm CVE của server email để khai thác
-
 NS là bản ghi name server ==> Authoritative DNS server
-Zone transfer
+TXT là bản ghi dạng free text, người dùng có thể đưa thông tin tuỳ ý vào trường này.
+Tin tặc có thể dùng bản ghi này để truyền thông tin điều khiển virus trong hệ thống mạng nội bộ (kể cả khi mạng đã chặn requests ra ngoài)
