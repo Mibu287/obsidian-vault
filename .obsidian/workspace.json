@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "1377df4367204634",
+        "id": "a9de16f04ed974e9",
         "type": "tabs",
         "children": [
           {
-            "id": "7e4c4846606b11a2",
+            "id": "e0df101605fbf724",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "security/CNAME take over.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "CNAME take over"
             }
           }
         ]
@@ -178,11 +182,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b9d15d1400b01bbd",
+  "active": "e0df101605fbf724",
   "lastOpenFiles": [
-    "security/Reversed Shell.md",
-    "security/The Onion Router (TOR).md",
+    "Data handling.md",
+    "security/CNAME take over.md",
     "Task life cycle (RISC-V).md",
+    "cuda/Hardware architectures.md",
+    "misc",
+    "security/The Onion Router (TOR).md",
+    "security/Reversed Shell.md",
     "Quantization.md",
     "security/OpenSSL.md",
     "security/Active Directory.md",
@@ -202,19 +210,15 @@
     "llama.cpp",
     "JAX/Tracing.md",
     "JAX/Illustrated Implementation.md",
-    "cuda/Hardware architectures.md",
     "network/Server Message Block.md",
     "network",
     "JAX/Jax Array.md",
-    "Data handling.md",
     "xgboost",
     "JAX",
     "pytorch/AutoGrad/AutogradMeta.md",
     "pytorch/AutoGrad/Backward gradient.md",
-    "pytorch/AutoGrad/Node and Edge.md",
     "pytorch/Tensor",
     "pytorch/AutoGrad",
-    "cuda",
-    "rust-lang"
+    "cuda"
   ]
 }
