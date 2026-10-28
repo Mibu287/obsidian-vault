@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "DNS records"
             }
+          },
+          {
+            "id": "0a98dcfc23bd246e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Awesome websites.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Awesome websites"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -182,10 +197,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e0df101605fbf724",
+  "active": "0a98dcfc23bd246e",
   "lastOpenFiles": [
-    "Data handling.md",
     "security/DNS records.md",
+    "Awesome websites.md",
+    "Data handling.md",
     "Task life cycle (RISC-V).md",
     "cuda/Hardware architectures.md",
     "misc",
@@ -216,7 +232,6 @@
     "xgboost",
     "JAX",
     "pytorch/AutoGrad/AutogradMeta.md",
-    "pytorch/AutoGrad/Backward gradient.md",
     "pytorch/Tensor",
     "pytorch/AutoGrad",
     "cuda"
