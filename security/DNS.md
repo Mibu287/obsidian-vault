@@ -36,3 +36,12 @@ The web server will execute `whoami` and then `nslookup`. The attacker's name se
 
 > [!note]
 > Sử dụng dịch vụ của [webhook.site](https://webhook.site) để tạo DNS authoritative server
+
+## DNS Server
+
+Một số nhà cung cấp tên miền cho phép người dùng khai báo địa chỉ authoritative DNS Server.
+Ví dụ khi mua tên miền `awesome.example.com` từ Godaddy, người dùng có thể định khai báo authoritative server (`ns.awesome.example.com`). Tại địa chỉ này, chạy ứng dụng DNS Server như BIND9. Khi một client thực hiện truy vấn DNS của `foobar.awesome.example.com`, chuỗi truy vấn đầy đủ (không cache) như sau:
+- client gửi request đến DNS resolver (VD: cloudflare `1.1.1.1`)
+- `1.1.1.1` gửi truy vấn đến root DNS server để biết địa chỉ máy chủ DNS cho `.com`
+- `1.1.1.1` gửi truy vấn đến máy chủ DNS `.com` và nhận được thông tin về địa chỉ authoritative server cho `ns.awesome.example.com`.
+- `1.1.1.1` gửi truy vấn đến `ns.awesome.example.com` để hỏi địa chỉ của `foobar.awesome.example.com` và nhận được địa chỉ IP của tên miền này.
