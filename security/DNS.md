@@ -39,9 +39,9 @@ The web server will execute `whoami` and then `nslookup`. The attacker's name se
 
 ## DNS Server
 
-Một số nhà cung cấp tên miền cho phép người dùng khai báo địa chỉ authoritative DNS Server.
-Ví dụ khi mua tên miền `awesome.example.com` từ Godaddy, người dùng có thể định khai báo authoritative server (`ns.awesome.example.com`). Tại địa chỉ này, chạy ứng dụng DNS Server như BIND9. Khi một client thực hiện truy vấn DNS của `foobar.awesome.example.com`, chuỗi truy vấn đầy đủ (không cache) như sau:
+Một số nhà cung cấp tên miền cho phép người dùng khai báo địa chỉ authoritative DNS Server.  
+Ví dụ khi mua tên miền `awesome.com` từ GoDaddy, người dùng có thể khai báo authoritative server (`ns.awesome.com`) kèm địa chỉ IP của nó (gọi là glue record, cần thiết vì `ns.awesome.com` nằm trong chính tên miền nó phục vụ). Tại địa chỉ này, chạy ứng dụng DNS Server như BIND9. Khi một client thực hiện truy vấn DNS của `foobar.awesome.com`, chuỗi truy vấn đầy đủ (không cache) như sau:
 - client gửi request đến DNS resolver (VD: cloudflare `1.1.1.1`)
 - `1.1.1.1` gửi truy vấn đến root DNS server để biết địa chỉ máy chủ DNS cho `.com`
-- `1.1.1.1` gửi truy vấn đến máy chủ DNS `.com` và nhận được thông tin về địa chỉ authoritative server cho `ns.awesome.example.com`.
-- `1.1.1.1` gửi truy vấn đến `ns.awesome.example.com` để hỏi địa chỉ của `foobar.awesome.example.com` và nhận được địa chỉ IP của tên miền này.
+- `1.1.1.1` gửi truy vấn đến máy chủ DNS `.com` và nhận được NS của `awesome.com` là `ns.awesome.com`, kèm glue record (IP của `ns.awesome.com`).
+- `1.1.1.1` gửi truy vấn đến `ns.awesome.com` để hỏi địa chỉ của `foobar.awesome.com` và nhận được địa chỉ IP của tên miền này.
