@@ -11,10 +11,14 @@
             "id": "b0aed4aba0f3728b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "security/OSCP like HackTheBox challenges.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "OSCP like HackTheBox challenges"
             }
           }
         ]
@@ -178,9 +182,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b9d15d1400b01bbd",
+  "active": "b0aed4aba0f3728b",
   "lastOpenFiles": [
     "security/Kali Linux Responder.md",
+    "security/OSCP like HackTheBox challenges.md",
     "security/DNS.md",
     "security/DNS Server.md",
     "security/Active Directory.md",
@@ -209,7 +214,6 @@
     "llama.cpp",
     "JAX/Tracing.md",
     "JAX/Illustrated Implementation.md",
-    "network/Server Message Block.md",
     "network",
     "xgboost",
     "JAX",
