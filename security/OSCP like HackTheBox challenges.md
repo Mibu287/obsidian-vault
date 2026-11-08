@@ -1,2 +1,0 @@
-#offsec #hackthebox
-

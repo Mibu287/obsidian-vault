@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "security/OSCP like HackTheBox challenges.md",
-                "mode": "source",
-                "source": false
+                "file": "security/HTB challenges for OSCP exams.md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "OSCP like HackTheBox challenges"
+              "title": "HTB challenges for OSCP exams"
             }
           }
         ]
@@ -185,7 +185,7 @@
   "active": "b0aed4aba0f3728b",
   "lastOpenFiles": [
     "security/Kali Linux Responder.md",
-    "security/OSCP like HackTheBox challenges.md",
+    "security/HTB challenges for OSCP exams.md",
     "security/DNS.md",
     "security/DNS Server.md",
     "security/Active Directory.md",
