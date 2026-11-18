@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "security/HTB challenges for OSCP exams.md",
+                "file": "security/Active Directory.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "HTB challenges for OSCP exams"
+              "title": "Active Directory"
+            }
+          },
+          {
+            "id": "51a7b15be8bee62e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "security/SQL Server.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "SQL Server"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -182,16 +197,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b0aed4aba0f3728b",
+  "active": "51a7b15be8bee62e",
   "lastOpenFiles": [
-    "security/Kali Linux Responder.md",
-    "security/HTB challenges for OSCP exams.md",
-    "security/DNS.md",
-    "security/DNS Server.md",
     "security/Active Directory.md",
+    "security/SQL Server.md",
+    "security/DNS.md",
     "security/The Onion Router (TOR).md",
-    "security/OpenSSL.md",
     "security/Reversed Shell.md",
+    "security/OpenSSL.md",
+    "security/HTB challenges for OSCP exams.md",
+    "security/Kali Linux Responder.md",
+    "security/DNS Server.md",
     "Awesome websites.md",
     "Data handling.md",
     "Task life cycle (RISC-V).md",
@@ -213,7 +229,6 @@
     "llama.cpp/GGUF file structure.md",
     "llama.cpp",
     "JAX/Tracing.md",
-    "JAX/Illustrated Implementation.md",
     "network",
     "xgboost",
     "JAX",
