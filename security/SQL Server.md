@@ -1,29 +1,52 @@
-#offsec #mssql 
+#offsec #mssql
+## 1. Authentication
 
-# 1. Authentication
+SQL Server uses **logins** to authenticate connections to a SQL Server instance.
 
-- SQL Server manage logins which are credentials to authenticate with the SQL Server instance. The logins can be either: 
-    - Windows-based logins: which use username / passwords for the Windows / Active Directory accounts to login to SQL Server (e.g john.doe@company.example.com)
-    - SQL logins: the login is created in SQL Server instance only (e.g: `sa`, `jdoe`)
-- In corporate environment, it's often restricted access to SQL Server for AD accounts only. SQL login is often disabled on the SQL server instance. By using AD accounts, the instance can rely on AD for authentication and authorization.
+| Login type           | How it works                                                                                                                  | Examples                       |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| **Windows login**    | Uses a Windows account, such as an Active Directory domain account. SQL Server relies on Windows to authenticate the account. | `john.doe@company.example.com` |
+| **SQL Server login** | SQL Server stores and validates the credentials at the instance level.                                                        | `sa`, `jdoe`                   |
 
-# 2. Tools
+In corporate environments, SQL Server may be configured for **Windows Authentication only**, with access granted to specific Active Directory users or groups. SQL Server then determines what those users can do based on their roles and permissions.
 
-## 2.1. impacket mssqlclient.py
+## 2. Tools
 
-Using impacket mssqlclient.py, we can access Microsoft SQL Server like any other database client tools.
+### 2.1. `impacket mssqlclient.py`
+
+Use `mssqlclient.py` to connect to a SQL Server instance and run T-SQL queries interactively.
 
 ```shell
 impacket-mssqlclient $USER:'$PASSWD'@$SERVER_ADDR -port $SERVER_PORT
 ```
 
-## 2.2. netexec mssql
+> [!tip] Built-in enumeration commands
+> Once connected, you can run these commands at the `mssqlclient.py` prompt.
+>
+> | Command | Lists |
+> | --- | --- |
+> | `enum_db` | Databases |
+> | `enum_logins` | Server-level logins |
+> | `enum_users` | Users in the current database |
+> | `enum_impersonate` | Impersonation permissions |
+Use Impacket's `mssqlclient.py` to connect to a SQL Server instance and run T-SQL queries interactively.
 
-Using `netexec`, we can connect to SQL server and execute scripts
+### 2.2. `NetExec mssql`
 
-- Enumerate Active Directory users using MSSQL
-    ```shell
-    netexec mssql $SERVER_ADDR -u $USER -p $PASSWD --local-auth --rid-brute
-    ```
-    
-    This
+NetExec's `mssql` module can connect to SQL Server and run queries.
+
+#### Enumerate account names by RID
+
+```shell
+netexec mssql $SERVER_ADDR -u $USER -p $PASSWD --local-auth --rid-brute
+```
+
+RID enumeration varies the **relative identifier (RID)**, the final component of a Windows security identifier (SID). It then uses a T-SQL expression such as `SELECT SUSER_SNAME(SID_BINARY(...))` to resolve each candidate SID to an account name.
+
+### Execute query
+
+
+```shell
+netexec mssql $SERVER_ADDR -u $USER -p $PASSWD --local-auth --rid-brute \
+    -q 'SELECT * FROM sys.sql_logins;'
+```
