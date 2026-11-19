@@ -9,4 +9,21 @@
 
 # 2. Tools
 
-## 2.1. 
+## 2.1. impacket mssqlclient.py
+
+Using impacket mssqlclient.py, we can access Microsoft SQL Server like any other database client tools.
+
+```shell
+impacket-mssqlclient $USER:'$PASSWD'@$SERVER_ADDR -port $SERVER_PORT
+```
+
+## 2.2. netexec mssql
+
+Using `netexec`, we can connect to SQL server and execute scripts
+
+- Enumerate Active Directory users using MSSQL
+    ```shell
+    netexec mssql $SERVER_ADDR -u $USER -p $PASSWD --local-auth --rid-brute
+    ```
+    
+    This
