@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "security/SQL Server.md",
+                "file": "security/HTB challenges for OSCP exams.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SQL Server"
+              "title": "HTB challenges for OSCP exams"
             }
           }
         ]
@@ -184,8 +184,8 @@
   },
   "active": "51a7b15be8bee62e",
   "lastOpenFiles": [
-    "security/Active Directory.md",
     "security/SQL Server.md",
+    "security/Active Directory.md",
     "security/DNS.md",
     "security/The Onion Router (TOR).md",
     "security/Reversed Shell.md",
