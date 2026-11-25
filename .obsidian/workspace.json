@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "⚔️ RedTeam Cheatsheets.md",
+                "file": "security/RedTeam Cheatsheets.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "⚔️ RedTeam Cheatsheets"
+              "title": "RedTeam Cheatsheets"
             }
           }
         ],
@@ -197,10 +197,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ecbdb2c3fe5ecf70",
+  "active": "b9d15d1400b01bbd",
   "lastOpenFiles": [
     "security/Active Directory.md",
-    "⚔️ RedTeam Cheatsheets.md",
+    "security/RedTeam Cheatsheets.md",
     "security/The Onion Router (TOR).md",
     "security/SQL Server.md",
     "security/Reversed Shell.md",
